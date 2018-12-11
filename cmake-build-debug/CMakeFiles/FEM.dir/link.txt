@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/FEM.dir/main.cpp.o CMakeFiles/FEM.dir/Node.cpp.o CMakeFiles/FEM.dir/Element.cpp.o CMakeFiles/FEM.dir/Grid.cpp.o CMakeFiles/FEM.dir/functions.cpp.o  -o FEM 
