@@ -44,6 +44,8 @@ void Grid::prepareElements() {
         for(int j = 0; j < hOfGrid-1; j++)
         {
             elements[j][i].addNodes(iid, &nodes[j][i], &nodes[j][i+1],&nodes[j+1][i+1] ,&nodes[j+1][i] );
+            if(i == 0 || j == 0 || i == lOfGrid-2 || j==hOfGrid-2)
+                elements[j][i].setOutsideFlag(1);
             iid++;
         }
     }
@@ -74,9 +76,7 @@ void Grid::showGridByElements() {
     for(int i = 0; i < lOfGrid-1; i++)
     {
         for(int j = 0; j < hOfGrid-1; j++)
-
             cout << elements[j][i] << endl;
-
     }
 }
 

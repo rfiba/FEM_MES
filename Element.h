@@ -28,6 +28,7 @@ private:
     double shapeDEtaFunctionMatrix[4][4];
     double NNPCMatrix[4][4][4];
     double PC;
+    double outsideFlag;
 
 public:
     Element(){};
@@ -46,9 +47,10 @@ public:
     void showNdYPCmatrix();
     void prepareMatrixH();
     void prepareMatrixC();
-
+    void setOutsideFlag(bool flagToAdd);
     void showMatrixH();
     void showMatrixC();
+    bool getFlag();
 };
 
 

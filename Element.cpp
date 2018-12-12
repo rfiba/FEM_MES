@@ -24,13 +24,15 @@ Element::Element(unsigned short idToAdd, Node *nodesToAdd, double PC) {
             shapeDEtaFunctionMatrix[i][j]  = pointerEtaDerivateF[i](PCArray[tmp]);
         }
     }
+
+    outsideFlag = false;
 }
 
 ostream &operator<<(ostream &output, Element &toShow) {
     output << toShow.id << endl << "{";
     for(Node* i: toShow.nodes)
         output << *i << ",\t";
-    output << "}";
+    output << "} " << toShow.outsideFlag;
     return output;
 }
 
@@ -237,6 +239,14 @@ void Element::showMatrixC() {
         cout << endl;
     }
 
+}
+
+void Element::setOutsideFlag(bool flagToAdd) {
+    outsideFlag = flagToAdd;
+}
+
+bool Element::getFlag() {
+    return outsideFlag;
 }
 
 
