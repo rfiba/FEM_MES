@@ -25,14 +25,15 @@ Element::Element(unsigned short idToAdd, Node *nodesToAdd, double PC) {
         }
     }
 
-    outsideFlag = false;
+    for(int i = 0; i < 4; i++)
+        outsideFlags[i] = false;
 }
 
 ostream &operator<<(ostream &output, Element &toShow) {
     output << toShow.id << endl << "{";
     for(Node* i: toShow.nodes)
         output << *i << ",\t";
-    output << "} " << toShow.outsideFlag;
+    output << "}";
     return output;
 }
 
@@ -241,12 +242,8 @@ void Element::showMatrixC() {
 
 }
 
-void Element::setOutsideFlag(bool flagToAdd) {
-    outsideFlag = flagToAdd;
-}
-
-bool Element::getFlag() {
-    return outsideFlag;
+void Element::setOutsideFlag(bool flagToAdd, int i ) {
+    outsideFlags[i] = flagToAdd;
 }
 
 void Element::calculateLengths() {

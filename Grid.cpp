@@ -44,8 +44,14 @@ void Grid::prepareElements() {
         for(int j = 0; j < hOfGrid-1; j++)
         {
             elements[j][i].addNodes(iid, &nodes[j][i], &nodes[j][i+1],&nodes[j+1][i+1] ,&nodes[j+1][i] );
-            if(i == 0 || j == 0 || i == lOfGrid-2 || j==hOfGrid-2)
-                elements[j][i].setOutsideFlag(1);
+            if(i == 0)
+                elements[j][i].setOutsideFlag(1, 3);
+            if(j == 0)
+                elements[j][i].setOutsideFlag(1, 0);
+            if( i == lOfGrid-2)
+                elements[j][i].setOutsideFlag(1, 1);
+            if ( j==hOfGrid-2)
+                elements[j][i].setOutsideFlag(1, 2);
             iid++;
         }
     }

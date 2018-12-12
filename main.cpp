@@ -18,7 +18,7 @@ int main() {
     nodes[2].setXYT(0.025,0.025, 20);
     nodes[3].setXYT(0,0.025, 20);
     Element testC = Element(0,nodes, 1 / sqrt(3));
-    testC.calculateLengths();
+    cout << testC << endl;
     /*testC.prepareMatrixH();
     testC.prepareMatrixC();
     cout << "----\n";
@@ -34,7 +34,7 @@ int main() {
     testC.prepareNdXYPCmatrices();
     testC.showNdYPCmatrix();
     testC.prepareMatrixH();
-    testC.showMatrixH();*/
-    cout << sizeof(Element) << endl;
+    testC.showMatrixH();
+    cout << sizeof(Element) << endl;*/
     return 0;
 }

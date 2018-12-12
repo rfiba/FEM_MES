@@ -28,7 +28,7 @@ private:
     double shapeDEtaFunctionMatrix[4][4];
     double NNPCMatrix[4][4][4];
     double PC;
-    double outsideFlag;
+    bool outsideFlags[4];
     double sideLengths[4];
 
 public:
@@ -48,7 +48,7 @@ public:
     void showNdYPCmatrix();
     void prepareMatrixH();
     void prepareMatrixC();
-    void setOutsideFlag(bool flagToAdd);
+    void setOutsideFlag(bool flagToAdd, int i);
     void showMatrixH();
     void showMatrixC();
     bool getFlag();
