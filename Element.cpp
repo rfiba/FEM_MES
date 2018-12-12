@@ -249,5 +249,13 @@ bool Element::getFlag() {
     return outsideFlag;
 }
 
+void Element::calculateLengths() {
+    for(int i = 0; i < 4; i++)
+    {
+        sideLengths[i] =
+                sqrt(pow(nodes[i]->getX()-nodes[(i+1)%4]->getX(),2) + pow(nodes[i]->getY()-nodes[(i+1)%4]->getY(),2));
+    }
+}
+
 
 

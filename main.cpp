@@ -18,12 +18,13 @@ int main() {
     nodes[2].setXYT(0.025,0.025, 20);
     nodes[3].setXYT(0,0.025, 20);
     Element testC = Element(0,nodes, 1 / sqrt(3));
-    testC.prepareMatrixH();
+    testC.calculateLengths();
+    /*testC.prepareMatrixH();
     testC.prepareMatrixC();
     cout << "----\n";
     testC.showMatrixC();
     cout << "----\n";
-    /*testC.prepareJacobian();
+    testC.prepareJacobian();
     testC.showJacobian();
     testC.reverseJacobiMatrix();
     cout << endl;
@@ -32,8 +33,8 @@ int main() {
     testC.showdNdMatrix();
     testC.prepareNdXYPCmatrices();
     testC.showNdYPCmatrix();
-    testC.prepareMatrixH();*/
-    testC.showMatrixH();
+    testC.prepareMatrixH();
+    testC.showMatrixH();*/
     cout << sizeof(Element) << endl;
     return 0;
 }

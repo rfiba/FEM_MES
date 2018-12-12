@@ -29,6 +29,7 @@ private:
     double NNPCMatrix[4][4][4];
     double PC;
     double outsideFlag;
+    double sideLengths[4];
 
 public:
     Element(){};
@@ -51,6 +52,7 @@ public:
     void showMatrixH();
     void showMatrixC();
     bool getFlag();
+    void calculateLengths();
 };
 
 
