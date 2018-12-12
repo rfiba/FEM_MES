@@ -18,7 +18,10 @@ int main() {
     nodes[2].setXYT(0.025,0.025, 20);
     nodes[3].setXYT(0,0.025, 20);
     Element testC = Element(0,nodes, 1 / sqrt(3));
-    cout << testC << endl;
+
+    testC.setOutsideFlag(1,0);
+    testC.calculateLengths();
+    testC.addBoundaryCondition(25);
     /*testC.prepareMatrixH();
     testC.prepareMatrixC();
     cout << "----\n";

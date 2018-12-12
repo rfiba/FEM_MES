@@ -5,6 +5,7 @@
 #include "Element.h"
 
 Element::Element(unsigned short idToAdd, Node *nodesToAdd, double PC) {
+    PC = 1/sqrt(3);
     id = idToAdd;
 
     for(int i = 0; i < 4; i++)
@@ -251,6 +252,69 @@ void Element::calculateLengths() {
     {
         sideLengths[i] =
                 sqrt(pow(nodes[i]->getX()-nodes[(i+1)%4]->getX(),2) + pow(nodes[i]->getY()-nodes[(i+1)%4]->getY(),2));
+    }
+}
+
+void Element::addBoundaryCondition(double alpha) {
+    PC = 1/sqrt(3);
+    int i = 0;
+    for(; i < 4; i++)
+    {
+        if(outsideFlags[i] == true)
+            break;
+    }
+
+    if(i == 4)
+        return;
+
+    double (*pointerShapeF[])(double, double)={N1,N2,N3,N4};
+
+    double PCs[4][2][2] ={{{-PC,-1}, {PC,-1}},{{1, -PC},{ 1, PC}}, {{PC,1},{-PC,1}}, {{-1, PC}, {-1,-PC}}};
+
+    double tmp[2];
+    double tmpPC1[4][2][2];
+    double tmpPC2[4][2][2];
+
+    for(i = 0; i < 4; i ++)
+    {
+        if(!outsideFlags[i])
+            continue;
+
+        tmp[0] = pointerShapeF[i](PCs[i][0][0], PCs[i][0][1]);
+        tmp[1] = pointerShapeF[(i+1)%4](PCs[i][0][0], PCs[i][0][1]);
+        tmpPC1[i][0][0] = tmp[0]*tmp[0]*alpha;
+        tmpPC1[i][1][1] = tmp[1]*tmp[1]*alpha;
+        tmpPC1[i][0][1] = tmpPC1[i][1][0] = tmp[0]*tmp[1]*alpha;
+
+        tmp[0] = pointerShapeF[i](PCs[i][1][0], PCs[i][1][1]);
+        tmp[1] = pointerShapeF[(i+1)%4](PCs[i][1][0], PCs[i][1][1]);
+        tmpPC2[i][0][0] = tmp[0]*tmp[0]*alpha;
+        tmpPC2[i][1][1] = tmp[1]*tmp[1]*alpha;
+        tmpPC2[i][0][1] = tmpPC2[i][1][0] = tmp[0]*tmp[1]*alpha;
+
+    }
+
+    double matrix[4][4];
+    for(i = 0; i <4; i++)
+    {
+        for(int j = 0; j <4; j++)
+            matrix[i][j]=0;
+    }
+    for(i = 0; i < 4; i ++) {
+        if (!outsideFlags[i])
+            continue;
+
+        matrix[i][i] += (tmpPC1[i][0][0] + tmpPC2[i][0][0])*(sideLengths[i]/2);
+        matrix[i][(i+1)%4] += (tmpPC1[i][0][1] + tmpPC2[i][0][1])*(sideLengths[i]/2);
+        matrix[(i+1)%4][i] += (tmpPC1[i][1][0] + tmpPC2[i][1][0])*(sideLengths[i]/2);
+        matrix[(i+1)%4][(i+1)%4] += (tmpPC1[i][1][1] + tmpPC2[i][1][1])*(sideLengths[i]/2);
+    }
+
+    for(int i = 0; i < 4; i ++)
+    {
+        for(int j = 0; j < 4; j++)
+            cout << matrix[i][j] << "\t\t ";
+        cout << endl;
     }
 }
 

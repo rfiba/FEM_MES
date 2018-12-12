@@ -51,8 +51,9 @@ public:
     void setOutsideFlag(bool flagToAdd, int i);
     void showMatrixH();
     void showMatrixC();
-    bool getFlag();
     void calculateLengths();
+    void addBoundaryCondition(double alpha);
+
 };
 
 
