@@ -316,6 +316,11 @@ void Element::addBoundaryCondition(double alpha) {
             cout << matrix[i][j] << "\t\t ";
         cout << endl;
     }
+
+    for(int i = 0; i < 4; i ++) {
+        for (int j = 0; j < 4; j++)
+            matrixH[i][j] += matrix[i][j];
+    }
 }
 
 
