@@ -30,11 +30,12 @@ private:
     double PC;
     bool outsideFlags[4];
     double sideLengths[4];
+    double vectorP;
 
 public:
     Element(){};
     Element(unsigned short idToAdd, Node nodesToAdd[4],double PC);
-    void addNodes(unsigned short idToAdd, Node* aToAdd, Node* bToAdd, Node* cToAdd, Node* dToAdd);
+    void addNodes(unsigned short idToAdd, Node* aToAdd, Node* bToAdd, Node* cToAdd, Node* dToAdd, int column, int hOfGrid, double PCToAdd);
     friend ostream &operator<<(ostream &output, Element &toShow);
     void setID(unsigned short idToAdd);
     void showJacobian();
@@ -46,13 +47,15 @@ public:
     void showNdXPCmatrix();
     void prepareNdXYPCmatrices();
     void showNdYPCmatrix();
-    void prepareMatrixH();
+    void prepareMatrixH(double k);
     void prepareMatrixC();
     void setOutsideFlag(bool flagToAdd, int i);
     void showMatrixH();
     void showMatrixC();
     void calculateLengths();
     void addBoundaryCondition(double alpha);
+    void agregateMatrixH(double ** globalMatrixH);
+    void showDetJacobian();
 
 };
 

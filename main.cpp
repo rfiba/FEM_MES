@@ -7,11 +7,15 @@
 using namespace std;
 
 int main() {
-    Grid test = Grid(6,4, 40, 30,30, 20,1 / sqrt(3));
-    test.showGridByNodes();
-    cout << endl;
-    test.showGridByElements();
+    Grid test = Grid(4,4, 0.1, 0.01,25, 25, 300,1 / sqrt(3));
+    cout << sizeof(Grid) << endl;
+    cout << sizeof(Element)*16 << endl;
 
+    test.showGridByNodes();
+    test.showGridByElements();
+    test.prepareLocalMatricesH();
+    test.agregateMatrixH();
+    test.showMatrixH();
     Node nodes[4];
     nodes[0].setXYT(0,0, 20);
     nodes[1].setXYT(0.025,0, 20);
@@ -19,25 +23,27 @@ int main() {
     nodes[3].setXYT(0,0.025, 20);
     Element testC = Element(0,nodes, 1 / sqrt(3));
 
-    testC.setOutsideFlag(1,0);
+    for(int i = 0; i < 4; i++)
+        testC.setOutsideFlag(1,i);
     testC.calculateLengths();
+
+    testC.prepareMatrixH(30);
     testC.addBoundaryCondition(25);
-    /*testC.prepareMatrixH();
-    testC.prepareMatrixC();
+    //testC.prepareMatrixC();
     cout << "----\n";
-    testC.showMatrixC();
+    //testC.showMatrixC();
     cout << "----\n";
-    testC.prepareJacobian();
-    testC.showJacobian();
-    testC.reverseJacobiMatrix();
+    //testC.prepareJacobian();
+    //testC.showJacobian();
+    //testC.reverseJacobiMatrix();
     cout << endl;
-    testC.showReversedJacobiMatrix();
-    testC.prepareDNdMatrix();
-    testC.showdNdMatrix();
-    testC.prepareNdXYPCmatrices();
-    testC.showNdYPCmatrix();
-    testC.prepareMatrixH();
+    //testC.showReversedJacobiMatrix();
+    //testC.prepareDNdMatrix();
+    //testC.showdNdMatrix();
+    //testC.prepareNdXYPCmatrices();
+    //testC.showNdYPCmatrix();
+    //testC.prepareMatrixH();
     testC.showMatrixH();
-    cout << sizeof(Element) << endl;*/
+    cout << sizeof(Element) << endl;
     return 0;
 }

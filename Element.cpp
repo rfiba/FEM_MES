@@ -38,12 +38,35 @@ ostream &operator<<(ostream &output, Element &toShow) {
     return output;
 }
 
-void Element::addNodes(unsigned short idToAdd, Node *aToAdd, Node *bToAdd, Node *cToAdd, Node *dToAdd) {
+void Element::addNodes(unsigned short idToAdd, Node *aToAdd, Node *bToAdd, Node *cToAdd, Node *dToAdd, int column, int hOfGrid, double PCToAdd) {
     id = idToAdd;
     nodes[0] = aToAdd;
     nodes[1] = bToAdd;
     nodes[2] = cToAdd;
     nodes[3] = dToAdd;
+    globalNodesID[0] = id+column;
+    globalNodesID[1] = id+column+hOfGrid;
+    globalNodesID[2] = id+column+hOfGrid+1;
+    globalNodesID[3] = id+column+1;
+    PC = PCToAdd;
+
+    double PCArray[] = {-PC,-PC, PC, -PC, PC, PC, -PC, PC};
+    double (*pointerShapeF[])(double, double)={N1,N2,N3,N4};
+    double (*pointerKsiDerivateF[])(double)={N1_ksi_derivative,N2_ksi_derivative,N3_ksi_derivative,N4_ksi_derivative};
+    double (*pointerEtaDerivateF[])(double)={N1_eta_derivative,N2_eta_derivative,N3_eta_derivative,N4_eta_derivative};
+
+    for(int i = 0, tmp =0; i<4;i++, tmp = 0)
+    {
+        for(int j = 0; j < 4; j++, tmp+=2)
+        {
+            shapeFunctionMatrix[j][i] = pointerShapeF[i](PCArray[tmp], PCArray[tmp+1]);
+            shapeDKsiFunctionMatrix[i][j]  = pointerKsiDerivateF[i](PCArray[tmp+1]);
+            shapeDEtaFunctionMatrix[i][j]  = pointerEtaDerivateF[i](PCArray[tmp]);
+        }
+    }
+
+    for(int i = 0; i < 4; i++)
+        outsideFlags[i] = false;
 }
 
 void Element::setID(unsigned short idToAdd) {
@@ -186,7 +209,7 @@ void Element::showNdYPCmatrix() {
     }
 }
 
-void Element::prepareMatrixH() {
+void Element::prepareMatrixH(double K) {
     prepareJacobian();
     reverseJacobiMatrix();
     prepareDNdMatrix();
@@ -201,7 +224,7 @@ void Element::prepareMatrixH() {
         for(int j = 0; j < 4; j++)
         {
             for(int k = 0; k < 4; k++)
-                matrixH[j][k] += (dNdXPCmatrix[i][j][k] + dNdYPCmatrix[i][j][k])*detJacobian[i];
+                matrixH[j][k] += (dNdXPCmatrix[i][j][k] + dNdYPCmatrix[i][j][k])*detJacobian[i]*K;
         }
     }
 }
@@ -210,7 +233,7 @@ void Element::showMatrixH(){
     for(int i = 0; i <4; i++)
     {
         for(int j = 0; j <4; j ++)
-            cout << matrixH[i][j]*30 << " ";
+            cout << matrixH[i][j] << " ";
         cout << endl;
     }
 }
@@ -256,6 +279,7 @@ void Element::calculateLengths() {
 }
 
 void Element::addBoundaryCondition(double alpha) {
+    calculateLengths();
     PC = 1/sqrt(3);
     int i = 0;
     for(; i < 4; i++)
@@ -310,17 +334,26 @@ void Element::addBoundaryCondition(double alpha) {
         matrix[(i+1)%4][(i+1)%4] += (tmpPC1[i][1][1] + tmpPC2[i][1][1])*(sideLengths[i]/2);
     }
 
-    for(int i = 0; i < 4; i ++)
-    {
-        for(int j = 0; j < 4; j++)
-            cout << matrix[i][j] << "\t\t ";
-        cout << endl;
-    }
-
     for(int i = 0; i < 4; i ++) {
         for (int j = 0; j < 4; j++)
             matrixH[i][j] += matrix[i][j];
     }
+}
+
+void Element::agregateMatrixH(double **globalMatrixH) {
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 4; j++){
+            printf("dla: %d [%d][%d]->[%d][%d]\n",id, i,j,globalNodesID[i],globalNodesID[j]);
+            globalMatrixH[globalNodesID[i]][globalNodesID[j]] += matrixH[i][j];
+        }
+    }
+}
+
+void Element::showDetJacobian() {
+    for(int i = 0; i < 4; i++)
+        cout << detJacobian[i] << " ";
+    cout << "---" << endl;
 }
 
 
