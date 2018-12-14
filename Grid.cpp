@@ -5,7 +5,7 @@
 #include "Grid.h"
 
 Grid::Grid(int nH, int nL, double HtoAdd, double LtoAdd, double KtoAdd, double enviromentTemperatureToAdd,
-           double alphaToAdd, double PCToAdd) {
+           double alphaToAdd, double specificHeatToAdd, double densityToADD, double PCToAdd) {
     hOfGrid = nH;
     lOfGrid = nL;
     K = KtoAdd;
@@ -14,21 +14,35 @@ Grid::Grid(int nH, int nL, double HtoAdd, double LtoAdd, double KtoAdd, double e
     PC = PCToAdd;
     enviromentTempreture = enviromentTemperatureToAdd;
     alpha = alphaToAdd;
+    specificHeat =specificHeatToAdd;
+    density = densityToADD;
+
     nodes = new Node*[hOfGrid];
-    matrixH = new double*[hOfGrid*lOfGrid];
     for(int i = 0; i < hOfGrid; i++)
         nodes[i] = new Node[lOfGrid];
+
+    matrixH = new double*[hOfGrid*lOfGrid];
     for(int i = 0; i < hOfGrid*lOfGrid; i++)
         matrixH[i] = new double[lOfGrid*hOfGrid];
+
+    matrixC = new double*[hOfGrid*lOfGrid];
+    for(int i = 0; i < hOfGrid*lOfGrid; i++)
+        matrixC[i] = new double[lOfGrid*hOfGrid];
+
     elements = new Element*[(hOfGrid-1)];
     for(int i = 0; i < hOfGrid-1; i++)
         elements[i] = new Element[lOfGrid-1];
+
     prepareNodes();
     prepareElements();
+
     for(int i = 0; i < hOfGrid*lOfGrid; i++)
     {
         for(int j = 0; j < hOfGrid*lOfGrid; j++)
+        {
             matrixH[i][j] = 0;
+            matrixC[i][j] = 0;
+        }
     }
 }
 
@@ -129,5 +143,31 @@ void Grid::prepareLocalMatricesH() {
 
             //elements[i][j].showMatrixH();
         }
+    }
+}
+
+void Grid::prepareLocalMatricesC() {
+    for(int i = 0; i < hOfGrid-1; i ++)
+    {
+        for(int j  = 0; j < lOfGrid-1; j++) {
+            elements[i][j].prepareMatrixC(specificHeat, density);
+        }}
+}
+
+void Grid::agregateMatrixC() {
+
+    for(int i = 0; i < hOfGrid-1; i ++)
+    {
+        for(int j  = 0; j < lOfGrid-1; j++)
+            elements[i][j].agregateMatrixC(matrixC);
+    }
+}
+
+void Grid::showMatrixC() {
+    for(int i = 0; i < hOfGrid*lOfGrid; i++)
+    {
+        for(int j = 0; j < hOfGrid*lOfGrid; j++)
+            cout << matrixC[i][j] << " ";
+        cout << endl;
     }
 }

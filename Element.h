@@ -30,7 +30,7 @@ private:
     double PC;
     bool outsideFlags[4];
     double sideLengths[4];
-    double vectorP;
+    double vectorP[4];
 
 public:
     Element(){};
@@ -48,13 +48,14 @@ public:
     void prepareNdXYPCmatrices();
     void showNdYPCmatrix();
     void prepareMatrixH(double k);
-    void prepareMatrixC();
+    void prepareMatrixC(double specificHeat, double density);
     void setOutsideFlag(bool flagToAdd, int i);
     void showMatrixH();
     void showMatrixC();
     void calculateLengths();
     void addBoundaryCondition(double alpha);
     void agregateMatrixH(double ** globalMatrixH);
+    void agregateMatrixC(double ** globalMatrixC);
     void showDetJacobian();
 
 };

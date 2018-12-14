@@ -238,11 +238,15 @@ void Element::showMatrixH(){
     }
 }
 
-void Element::prepareMatrixC() {
+void Element::prepareMatrixC(double specificHeat, double density) {
+    prepareJacobian();
+    reverseJacobiMatrix();
+    prepareDNdMatrix();
+    prepareNdXYPCmatrices();
     for(int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 4; k++) {
-                NNPCMatrix[i][k][j] = detJacobian[i]*shapeFunctionMatrix[k][i]*shapeFunctionMatrix[j][i]*700*7800;
+                NNPCMatrix[i][k][j] = detJacobian[i]*shapeFunctionMatrix[k][i]*shapeFunctionMatrix[j][i]*specificHeat*density;
             }
         }
     }
@@ -344,7 +348,7 @@ void Element::agregateMatrixH(double **globalMatrixH) {
     for(int i = 0; i < 4; i++)
     {
         for(int j = 0; j < 4; j++){
-            printf("dla: %d [%d][%d]->[%d][%d]\n",id, i,j,globalNodesID[i],globalNodesID[j]);
+            //printf("dla: %d [%d][%d]->[%d][%d]\n",id, i,j,globalNodesID[i],globalNodesID[j]);
             globalMatrixH[globalNodesID[i]][globalNodesID[j]] += matrixH[i][j];
         }
     }
@@ -354,6 +358,16 @@ void Element::showDetJacobian() {
     for(int i = 0; i < 4; i++)
         cout << detJacobian[i] << " ";
     cout << "---" << endl;
+}
+
+void Element::agregateMatrixC(double **globalMatrixC) {
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 4; j++){
+            //printf("dla: %d [%d][%d]->[%d][%d]\n",id, i,j,globalNodesID[i],globalNodesID[j]);
+            globalMatrixC[globalNodesID[i]][globalNodesID[j]] += matrixC[i][j];
+        }
+    }
 }
 
 

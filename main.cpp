@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-    Grid test = Grid(4,4, 0.1, 0.01,25, 25, 300,1 / sqrt(3));
+    Grid test = Grid(4,4, 0.1, 0.1,25, 25, 300,700, 7800, 1 / sqrt(3));
     cout << sizeof(Grid) << endl;
     cout << sizeof(Element)*16 << endl;
 
@@ -16,6 +16,11 @@ int main() {
     test.prepareLocalMatricesH();
     test.agregateMatrixH();
     test.showMatrixH();
+    cout << "_________" << endl;
+    test.prepareLocalMatricesC();
+    test.agregateMatrixC();
+    test.showMatrixC();
+    cout << "_________" << endl;
     Node nodes[4];
     nodes[0].setXYT(0,0, 20);
     nodes[1].setXYT(0.025,0, 20);
