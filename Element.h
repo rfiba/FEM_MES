@@ -33,7 +33,7 @@ private:
     double vectorP[4];
 
 public:
-    Element(){};
+    Element();
     Element(unsigned short idToAdd, Node nodesToAdd[4],double PC);
     void addNodes(unsigned short idToAdd, Node* aToAdd, Node* bToAdd, Node* cToAdd, Node* dToAdd, int column, int hOfGrid, double PCToAdd);
     friend ostream &operator<<(ostream &output, Element &toShow);
@@ -57,6 +57,7 @@ public:
     void agregateMatrixH(double ** globalMatrixH);
     void agregateMatrixC(double ** globalMatrixC);
     void showDetJacobian();
+    void prepareVectorP(double PC, double alpha, double enviromentTemperature);
 
 };
 

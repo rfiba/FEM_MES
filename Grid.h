@@ -18,18 +18,19 @@ private:
     double H;
     double L;
     double K;
-    double enviromentTempreture;
+    double initialTemperature;
     double PC;
     double alpha;
     double specificHeat;
     double density;
     double** matrixH;
     double** matrixC;
+    double ambientTemperature;
     void prepareNodes();
     void prepareElements();
 public:
-    Grid(int nH, int nL, double H, double L, double K, double enviromentTemperature, double alpha,
-         double specificHeatToAdd, double densityToADD, double PC);
+    Grid(int nH, int nL, double H, double L, double K, double initialTemperature, double alphaToAdd,
+         double specificHeatToAdd, double densityToADD, double ambientTemperatureToAdd, double PC);
     ~Grid();
     void showGridByNodes();
     void showGridByElements();
@@ -38,6 +39,7 @@ public:
     void prepareLocalMatricesH();
     void prepareLocalMatricesC();
     void agregateMatrixC();
+    void prepareLocalVectorP();
 
     void showMatrixC();
 };

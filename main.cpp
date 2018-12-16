@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-    Grid test = Grid(4,4, 0.1, 0.1,25, 25, 300,700, 7800, 1 / sqrt(3));
+    Grid test = Grid(4,4, 0.1, 0.1,25, 100, 300,700, 7800, 1200, 1 / sqrt(3));
     cout << sizeof(Grid) << endl;
     cout << sizeof(Element)*16 << endl;
 
@@ -22,17 +22,17 @@ int main() {
     test.showMatrixC();
     cout << "_________" << endl;
     Node nodes[4];
-    nodes[0].setXYT(0,0, 20);
-    nodes[1].setXYT(0.025,0, 20);
-    nodes[2].setXYT(0.025,0.025, 20);
-    nodes[3].setXYT(0,0.025, 20);
+    nodes[0].setXYT(0,	0,	25);
+    nodes[1].setXYT(0.0333333,	0,	25);
+    nodes[2].setXYT(0.0333333,	0.0333333,	25);
+    nodes[3].setXYT(0,	0.0333333,	25);
     Element testC = Element(0,nodes, 1 / sqrt(3));
 
     for(int i = 0; i < 4; i++)
         testC.setOutsideFlag(1,i);
     testC.calculateLengths();
-
-    testC.prepareMatrixH(30);
+    testC.prepareVectorP(1 / sqrt(3),300,1200);
+    /*testC.prepareMatrixH(30);
     testC.addBoundaryCondition(25);
     //testC.prepareMatrixC();
     cout << "----\n";
@@ -48,7 +48,9 @@ int main() {
     //testC.prepareNdXYPCmatrices();
     //testC.showNdYPCmatrix();
     //testC.prepareMatrixH();
-    testC.showMatrixH();
-    cout << sizeof(Element) << endl;
+    */cout << "-----------" << endl;
+    //Grid test1 = Grid(1,1, 0.1, 0.1,25, 25, 300,700, 7800, 1 / sqrt(3));
+    //test1.prepareLocalVectorP();
+    //cout << sizeof(Element) << endl;
     return 0;
 }

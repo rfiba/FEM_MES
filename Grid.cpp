@@ -4,15 +4,16 @@
 
 #include "Grid.h"
 
-Grid::Grid(int nH, int nL, double HtoAdd, double LtoAdd, double KtoAdd, double enviromentTemperatureToAdd,
-           double alphaToAdd, double specificHeatToAdd, double densityToADD, double PCToAdd) {
+Grid::Grid(int nH, int nL, double HtoAdd, double LtoAdd, double KtoAdd, double initialTemperatureToAdd,
+           double alphaToAdd, double specificHeatToAdd, double densityToADD,double ambientTemperatureToAdd, double PCToAdd) {
     hOfGrid = nH;
     lOfGrid = nL;
     K = KtoAdd;
     H = HtoAdd;
     L = LtoAdd;
     PC = PCToAdd;
-    enviromentTempreture = enviromentTemperatureToAdd;
+    initialTemperature = initialTemperatureToAdd;
+    ambientTemperature = ambientTemperatureToAdd;
     alpha = alphaToAdd;
     specificHeat =specificHeatToAdd;
     density = densityToADD;
@@ -86,7 +87,7 @@ void Grid::prepareNodes() {
     {
         for(int j = 0; j < lOfGrid; j++)
         {
-            nodes[i][j].setXYT(((double)L/(lOfGrid-1))*j ,((double)H/(hOfGrid-1))*i , enviromentTempreture);
+            nodes[i][j].setXYT(((double)L/(lOfGrid-1))*j ,((double)H/(hOfGrid-1))*i , initialTemperature);
         }
     }
 }
@@ -139,7 +140,7 @@ void Grid::prepareLocalMatricesH() {
             //elements[i][j].showNdYPCmatrix();
             //cout << endl << endl;
             //elements[i][j].showNdXPCmatrix();
-            elements[i][j].addBoundaryCondition(alpha);
+            //elements[i][j].addBoundaryCondition(alpha);
 
             //elements[i][j].showMatrixH();
         }
@@ -170,4 +171,13 @@ void Grid::showMatrixC() {
             cout << matrixC[i][j] << " ";
         cout << endl;
     }
+}
+
+void Grid::prepareLocalVectorP() {
+    for(int i = 0; i < hOfGrid-1; i ++)
+    {
+        for(int j  = 0; j < lOfGrid-1; j++)
+            elements[i][j].prepareVectorP(PC,alpha, ambientTemperature);
+    }
+    elements[0][0].prepareVectorP(PC,alpha, ambientTemperature);
 }

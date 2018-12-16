@@ -66,7 +66,9 @@ void Element::addNodes(unsigned short idToAdd, Node *aToAdd, Node *bToAdd, Node 
     }
 
     for(int i = 0; i < 4; i++)
-        outsideFlags[i] = false;
+        outsideFlags[i] = false; // zmień to na false tylko tymczasowo
+
+
 }
 
 void Element::setID(unsigned short idToAdd) {
@@ -368,6 +370,53 @@ void Element::agregateMatrixC(double **globalMatrixC) {
             globalMatrixC[globalNodesID[i]][globalNodesID[j]] += matrixC[i][j];
         }
     }
+}
+
+Element::Element() {
+    double PCArray[] = {-PC,-PC, PC, -PC, PC, PC, -PC, PC};
+    double (*pointerShapeF[])(double, double)={N1,N2,N3,N4};
+    double (*pointerKsiDerivateF[])(double)={N1_ksi_derivative,N2_ksi_derivative,N3_ksi_derivative,N4_ksi_derivative};
+    double (*pointerEtaDerivateF[])(double)={N1_eta_derivative,N2_eta_derivative,N3_eta_derivative,N4_eta_derivative};
+
+    for(int i = 0, tmp =0; i<4;i++, tmp = 0)
+    {
+        for(int j = 0; j < 4; j++, tmp+=2)
+        {
+            shapeFunctionMatrix[j][i] = pointerShapeF[i](PCArray[tmp], PCArray[tmp+1]);
+            shapeDKsiFunctionMatrix[i][j]  = pointerKsiDerivateF[i](PCArray[tmp+1]);
+            shapeDEtaFunctionMatrix[i][j]  = pointerEtaDerivateF[i](PCArray[tmp]);
+        }
+        outsideFlags[i] = false;
+        vectorP[i]=0;
+    }
+}
+
+void Element::prepareVectorP(double PC, double alpha, double enviromentTemperature) {
+
+
+    int i = 0;
+    for(; i < 4; i++)
+    {
+        if(outsideFlags[i] == true)
+            break;
+    }
+
+    if(i == 4)
+        return;
+    calculateLengths();
+
+    double PCs[2] = {-PC, PC};
+
+    for(int i = 0; i < 4; i ++)
+    {
+        if(!outsideFlags[i])
+            continue;
+
+        vectorP[i] = (0.5*(1-PCs[0])+0.5*(1+PCs[0])+0.5*(1-PCs[1])+0.5*(1+PCs[1]))*alpha*enviromentTemperature*sideLengths[i]/2;
+        cout << vectorP[i] << " "<< endl;
+    }
+    //cout << vectorP[i] << " "<< endl;
+
 }
 
 
