@@ -56,6 +56,8 @@ public:
     double* getVectorP();
     double* getVectorT0();
     double** getMatrixH();
+    void setTemperatures(double *vector);
+    void clearLocalandGlobalVectorMatrices();
 };
 
 

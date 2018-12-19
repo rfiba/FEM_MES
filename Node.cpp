@@ -29,3 +29,7 @@ double Node::getY() {
 double Node::getT() {
     return t;
 }
+
+void Node::setTemperature(double toSet) {
+    t = toSet;
+}

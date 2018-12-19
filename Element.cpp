@@ -431,5 +431,22 @@ void Element::getTemperaturesInVector(double *vectorT0) {
     }
 }
 
+void Element::setTemperature(double *temperature) {
+    for(int i = 0; i < 4; i++)
+        nodes[i]->setTemperature(temperature[globalNodesID[i]]);
+}
+
+void Element::clearVectorAndMatrices() {
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0 ; j<4; j++)
+        {
+            matrixH[i][j] = 0;
+            matrixC[i][j] = 0;
+        }
+        vectorP[i]=0;
+    }
+}
+
 
 

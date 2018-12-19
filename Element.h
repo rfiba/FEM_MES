@@ -60,6 +60,8 @@ public:
     void prepareVectorP(double PC, double alpha, double enviromentTemperature);
     void getTemperaturesInVector(double * vectorT0);
     void agregateVectorP(double *globalVectorP, int length);
+    void setTemperature(double *temperature);
+    void clearVectorAndMatrices();
 };
 
 

@@ -6,6 +6,7 @@
 #define FEM_SOLVER_H
 
 #include "Grid.h"
+#include <algorithm>
 
 const double eps = 1e-12;
 bool gauss(int n, double ** AB, double * X);

@@ -1,4 +1,4 @@
 #!/bin/bash
-echo "Settings: data.txt"
-echo "Results: result.txt"
-./FEM <data.txt >result.txt
+echo "Settings: " $1
+echo "Results: " $2
+./FEM <$1 >$2

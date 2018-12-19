@@ -24,6 +24,7 @@ public:
     double getX();
     double getY();
     double getT();
+    void setTemperature(double toSet);
 };
 
 

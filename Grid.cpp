@@ -271,3 +271,26 @@ double **Grid::getMatrixH() {
     return matrixH;
 }
 
+void Grid::setTemperatures(double *vector) {
+    for(int i = 0; i < hOfGrid-1; i ++) {
+        for (int j = 0; j < lOfGrid - 1; j++)
+            elements[i][j].setTemperature(vector);
+    }
+}
+
+void Grid::clearLocalandGlobalVectorMatrices() {
+    for(int i = 0; i < hOfGrid-1; i ++) {
+        for (int j = 0; j < lOfGrid - 1; j++)
+            elements[i][j].clearVectorAndMatrices();
+    }
+
+    for(int i = 0; i < hOfGrid*lOfGrid; i++) {
+        for (int j = 0; j < hOfGrid * lOfGrid; j++)
+        {
+            matrixC[i][j] = 0;
+            matrixH[i][j] = 0;
+        }
+        vectorP[i] =0;
+    }
+}
+

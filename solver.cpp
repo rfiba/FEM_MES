@@ -32,7 +32,8 @@ void solve(double timeStep, int numberOfIteration, Grid *grid)
         //grid->minusVectorP();
 
         vectorP = grid->getVectorP();
-
+        //grid->showMatrixH();
+        //grid->showVectorP();
         matrixH = grid->getMatrixH();
         for(int j = 0; j < h*l; j++)
         {
@@ -43,22 +44,26 @@ void solve(double timeStep, int numberOfIteration, Grid *grid)
         }
 
 
-        grid->showVectorP();
+
         for(int j = 0; j < h*l; j++)
             AB[j][h*l] = vectorP[j];
 
         for(int j = 0; j < h*l; j++) {
             for (int k = 0; k <= h * l; k++) {
-                cout << AB[j][k] << " ";
+
             }
-            cout << endl;
+
         }
 
-        cout <<  gauss(h*l,AB , result) << endl;
-        vectorP = grid->getVectorT0();
-        for(int j = 0; j < h*l; j++)
-            cout << result[j] << " ";
-        cout << endl;
+        gauss(h*l,AB , result);
+
+        cout << "Time: " << (i+1)*timeStep
+             << " MinTemp: " << *min_element(result, result+(h*l))
+             << " MaxTemp: " << *max_element(result, result+(h*l)) << endl;
+
+        grid->setTemperatures(result);
+        grid->clearLocalandGlobalVectorMatrices();
+        //grid->showGridByNodes();
     }
 }
 
