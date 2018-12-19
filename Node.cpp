@@ -25,3 +25,7 @@ double Node::getX() {
 double Node::getY() {
     return y;
 }
+
+double Node::getT() {
+    return t;
+}

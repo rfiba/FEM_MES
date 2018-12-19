@@ -14,6 +14,7 @@ int main() {
     test.showGridByNodes();
     test.showGridByElements();
     test.prepareLocalMatricesH();
+    test.addBoundaryConditionOnElements();
     test.agregateMatrixH();
     test.showMatrixH();
     cout << "_________" << endl;
@@ -21,6 +22,17 @@ int main() {
     test.agregateMatrixC();
     test.showMatrixC();
     cout << "_________" << endl;
+    test.prepareLocalVectorsP();
+    test.agregateVectorP();
+    test.showVectorP();
+    test.divideMatrixCbyTimeStep(50);
+
+    test.sumMatrixHandMatrixCbyTimeStep();
+    test.showMatrixH();
+    test.prepareVectorT0();
+    test.sumVectorPandMatrixCbyTimeSteptimesTemperatures();
+    test.showVectorP();
+
     Node nodes[4];
     nodes[0].setXYT(0,	0,	25);
     nodes[1].setXYT(0.0333333,	0,	25);

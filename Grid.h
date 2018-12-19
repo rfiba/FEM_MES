@@ -26,6 +26,8 @@ private:
     double** matrixH;
     double** matrixC;
     double ambientTemperature;
+    double *vectorP;
+    double *vectorT0;
     void prepareNodes();
     void prepareElements();
 public:
@@ -39,9 +41,15 @@ public:
     void prepareLocalMatricesH();
     void prepareLocalMatricesC();
     void agregateMatrixC();
-    void prepareLocalVectorP();
-
+    void prepareLocalVectorsP();
+    void agregateVectorP();
     void showMatrixC();
+    void showVectorP();
+    void divideMatrixCbyTimeStep(double timeStep);
+    void sumMatrixHandMatrixCbyTimeStep();
+    void addBoundaryConditionOnElements();
+    void sumVectorPandMatrixCbyTimeSteptimesTemperatures();
+    void prepareVectorT0();
 };
 
 

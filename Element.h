@@ -58,7 +58,8 @@ public:
     void agregateMatrixC(double ** globalMatrixC);
     void showDetJacobian();
     void prepareVectorP(double PC, double alpha, double enviromentTemperature);
-
+    void getTemperaturesInVector(double * vectorT0);
+    void agregateVectorP(double *globalVectorP, int length);
 };
 
 

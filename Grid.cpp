@@ -36,15 +36,21 @@ Grid::Grid(int nH, int nL, double HtoAdd, double LtoAdd, double KtoAdd, double i
 
     prepareNodes();
     prepareElements();
-
+    vectorP = new double[lOfGrid*hOfGrid];
+    vectorT0 = new double[lOfGrid*hOfGrid];
     for(int i = 0; i < hOfGrid*lOfGrid; i++)
     {
+        vectorP[i] = 0;
         for(int j = 0; j < hOfGrid*lOfGrid; j++)
         {
             matrixH[i][j] = 0;
             matrixC[i][j] = 0;
         }
     }
+
+
+
+
 }
 
 Grid::~Grid() {
@@ -57,6 +63,9 @@ Grid::~Grid() {
         delete[] nodes[i];
     }
     delete []nodes;
+
+    delete vectorP;
+    delete vectorT0;
 }
 
 
@@ -173,7 +182,7 @@ void Grid::showMatrixC() {
     }
 }
 
-void Grid::prepareLocalVectorP() {
+void Grid::prepareLocalVectorsP() {
     for(int i = 0; i < hOfGrid-1; i ++)
     {
         for(int j  = 0; j < lOfGrid-1; j++)
@@ -181,3 +190,59 @@ void Grid::prepareLocalVectorP() {
     }
     elements[0][0].prepareVectorP(PC,alpha, ambientTemperature);
 }
+
+void Grid::agregateVectorP() {
+    for(int i = 0; i < hOfGrid-1; i ++) {
+        for (int j = 0; j < lOfGrid - 1; j++)
+            elements[i][j].agregateVectorP(vectorP, hOfGrid*lOfGrid);
+    }
+}
+
+void Grid::showVectorP() {
+    cout << "{";
+    for(int i = 0; i < hOfGrid*lOfGrid; i++)
+        cout << vectorP[i] << " ";
+    cout << "}\n";
+}
+
+void Grid::divideMatrixCbyTimeStep(double timeStep) {
+    for(int i = 0; i < hOfGrid*lOfGrid; i++)
+    {
+        for(int j = 0; j < hOfGrid*lOfGrid; j++)
+            matrixC[i][j] /= timeStep;
+    }
+}
+
+void Grid::sumMatrixHandMatrixCbyTimeStep() {
+    for(int i = 0; i < hOfGrid*lOfGrid; i++) {
+        for (int j = 0; j < hOfGrid * lOfGrid; j++)
+            matrixH[i][j] += matrixC[i][j];
+    }
+}
+
+void Grid::addBoundaryConditionOnElements() {
+    for(int i = 0; i < hOfGrid-1; i ++) {
+        for (int j = 0; j < lOfGrid - 1; j++)
+            elements[i][j].addBoundaryCondition(alpha);
+    }
+}
+
+void Grid::sumVectorPandMatrixCbyTimeSteptimesTemperatures() {
+
+    for(int i = 0; i < hOfGrid*lOfGrid; i++)
+    {
+        for(int j = 0; j < hOfGrid*lOfGrid;j++)
+            vectorP[i]+=matrixC[i][j]*vectorT0[j];
+    }
+
+}
+
+void Grid::prepareVectorT0() {
+    for(int i = 0; i < hOfGrid-1; i ++) {
+        for (int j = 0; j < lOfGrid - 1; j++)
+            elements[i][j].getTemperaturesInVector(vectorT0);
+    }
+
+
+}
+

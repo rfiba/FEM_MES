@@ -23,6 +23,7 @@ public:
     void setXYT(double xToAdd,double yToAdd, double tToADD);
     double getX();
     double getY();
+    double getT();
 };
 
 

@@ -413,10 +413,22 @@ void Element::prepareVectorP(double PC, double alpha, double enviromentTemperatu
             continue;
 
         vectorP[i] = (0.5*(1-PCs[0])+0.5*(1+PCs[0])+0.5*(1-PCs[1])+0.5*(1+PCs[1]))*alpha*enviromentTemperature*sideLengths[i]/2;
-        cout << vectorP[i] << " "<< endl;
     }
-    //cout << vectorP[i] << " "<< endl;
 
+
+}
+
+void Element::agregateVectorP(double *globalVectorP, int length)
+{
+    for(int i = 0; i < 4; i++)
+        globalVectorP[globalNodesID[i]] += vectorP[i];
+}
+
+void Element::getTemperaturesInVector(double *vectorT0) {
+    for(int i = 0; i < 4; i ++)
+    {
+        vectorT0[globalNodesID[i]] = nodes[i]->getT();
+    }
 }
 
 
