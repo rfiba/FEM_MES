@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/rfiba/FEM_MES/Node.cpp" "/home/rfiba/FEM_MES/cmake-build-debug/CMakeFiles/FEM.dir/Node.cpp.o"
   "/home/rfiba/FEM_MES/functions.cpp" "/home/rfiba/FEM_MES/cmake-build-debug/CMakeFiles/FEM.dir/functions.cpp.o"
   "/home/rfiba/FEM_MES/main.cpp" "/home/rfiba/FEM_MES/cmake-build-debug/CMakeFiles/FEM.dir/main.cpp.o"
+  "/home/rfiba/FEM_MES/solver.cpp" "/home/rfiba/FEM_MES/cmake-build-debug/CMakeFiles/FEM.dir/solver.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

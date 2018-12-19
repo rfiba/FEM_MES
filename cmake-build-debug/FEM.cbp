@@ -111,6 +111,12 @@
 		<Unit filename="/home/rfiba/FEM_MES/main.cpp">
 			<Option target="FEM"/>
 		</Unit>
+		<Unit filename="/home/rfiba/FEM_MES/solver.cpp">
+			<Option target="FEM"/>
+		</Unit>
+		<Unit filename="/home/rfiba/FEM_MES/solver.h">
+			<Option target="FEM"/>
+		</Unit>
 		<Unit filename="/home/rfiba/FEM_MES/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

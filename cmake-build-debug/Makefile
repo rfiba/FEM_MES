@@ -258,6 +258,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/FEM.dir/build.make CMakeFiles/FEM.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+solver.o: solver.cpp.o
+
+.PHONY : solver.o
+
+# target to build an object file
+solver.cpp.o:
+	$(MAKE) -f CMakeFiles/FEM.dir/build.make CMakeFiles/FEM.dir/solver.cpp.o
+.PHONY : solver.cpp.o
+
+solver.i: solver.cpp.i
+
+.PHONY : solver.i
+
+# target to preprocess a source file
+solver.cpp.i:
+	$(MAKE) -f CMakeFiles/FEM.dir/build.make CMakeFiles/FEM.dir/solver.cpp.i
+.PHONY : solver.cpp.i
+
+solver.s: solver.cpp.s
+
+.PHONY : solver.s
+
+# target to generate assembly for a file
+solver.cpp.s:
+	$(MAKE) -f CMakeFiles/FEM.dir/build.make CMakeFiles/FEM.dir/solver.cpp.s
+.PHONY : solver.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -282,6 +309,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... solver.o"
+	@echo "... solver.i"
+	@echo "... solver.s"
 .PHONY : help
 
 

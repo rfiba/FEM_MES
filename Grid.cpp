@@ -246,3 +246,28 @@ void Grid::prepareVectorT0() {
 
 }
 
+void Grid::minusVectorP() {
+    for(int i = 0; i < hOfGrid*lOfGrid; i++)
+        vectorP[i] *= -1;
+}
+
+int Grid::getHOfGrid() {
+    return hOfGrid;
+}
+
+int Grid::getLOfGrid() {
+    return lOfGrid;
+}
+
+double *Grid::getVectorP() {
+    return vectorP;
+}
+
+double *Grid::getVectorT0() {
+    return vectorT0;
+}
+
+double **Grid::getMatrixH() {
+    return matrixH;
+}
+

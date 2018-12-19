@@ -53,4 +53,14 @@ Element.h
 /home/rfiba/FEM_MES/Element.h
 Grid.h
 /home/rfiba/FEM_MES/Grid.h
+solver.h
+/home/rfiba/FEM_MES/solver.h
+
+/home/rfiba/FEM_MES/solver.cpp
+solver.h
+/home/rfiba/FEM_MES/solver.h
+
+/home/rfiba/FEM_MES/solver.h
+Grid.h
+/home/rfiba/FEM_MES/Grid.h
 

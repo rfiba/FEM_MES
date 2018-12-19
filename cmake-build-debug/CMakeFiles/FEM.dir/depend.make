@@ -23,4 +23,12 @@ CMakeFiles/FEM.dir/main.cpp.o: ../Grid.h
 CMakeFiles/FEM.dir/main.cpp.o: ../Node.h
 CMakeFiles/FEM.dir/main.cpp.o: ../functions.h
 CMakeFiles/FEM.dir/main.cpp.o: ../main.cpp
+CMakeFiles/FEM.dir/main.cpp.o: ../solver.h
+
+CMakeFiles/FEM.dir/solver.cpp.o: ../Element.h
+CMakeFiles/FEM.dir/solver.cpp.o: ../Grid.h
+CMakeFiles/FEM.dir/solver.cpp.o: ../Node.h
+CMakeFiles/FEM.dir/solver.cpp.o: ../functions.h
+CMakeFiles/FEM.dir/solver.cpp.o: ../solver.cpp
+CMakeFiles/FEM.dir/solver.cpp.o: ../solver.h
 

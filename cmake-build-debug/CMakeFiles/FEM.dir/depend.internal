@@ -24,3 +24,11 @@ CMakeFiles/FEM.dir/main.cpp.o
  /home/rfiba/FEM_MES/Node.h
  /home/rfiba/FEM_MES/functions.h
  /home/rfiba/FEM_MES/main.cpp
+ /home/rfiba/FEM_MES/solver.h
+CMakeFiles/FEM.dir/solver.cpp.o
+ /home/rfiba/FEM_MES/Element.h
+ /home/rfiba/FEM_MES/Grid.h
+ /home/rfiba/FEM_MES/Node.h
+ /home/rfiba/FEM_MES/functions.h
+ /home/rfiba/FEM_MES/solver.cpp
+ /home/rfiba/FEM_MES/solver.h

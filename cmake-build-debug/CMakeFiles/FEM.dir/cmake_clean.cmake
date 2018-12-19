@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/FEM.dir/Element.cpp.o"
   "CMakeFiles/FEM.dir/Grid.cpp.o"
   "CMakeFiles/FEM.dir/functions.cpp.o"
+  "CMakeFiles/FEM.dir/solver.cpp.o"
   "FEM.pdb"
   "FEM"
 )

@@ -50,6 +50,12 @@ public:
     void addBoundaryConditionOnElements();
     void sumVectorPandMatrixCbyTimeSteptimesTemperatures();
     void prepareVectorT0();
+    void minusVectorP();
+    int getHOfGrid();
+    int getLOfGrid();
+    double* getVectorP();
+    double* getVectorT0();
+    double** getMatrixH();
 };
 
 

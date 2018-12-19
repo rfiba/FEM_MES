@@ -3,6 +3,7 @@
 #include "Node.h"
 #include "Element.h"
 #include "Grid.h"
+#include "solver.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ int main() {
     Grid test = Grid(4,4, 0.1, 0.1,25, 100, 300,700, 7800, 1200, 1 / sqrt(3));
     cout << sizeof(Grid) << endl;
     cout << sizeof(Element)*16 << endl;
+    solve(50,1, &test);
 
     test.showGridByNodes();
     test.showGridByElements();
